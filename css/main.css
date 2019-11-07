@@ -1,0 +1,266 @@
+
+a { text-decoration: none;  color:#5c8a8a}
+a:visited { text-decoration: none;}
+
+body {
+      margin:0;
+      padding:0;
+      font-family: "Lucida Sans Unicode", 
+      "Lucida Grande", sans-serif;
+  }
+
+#container {
+      width:1000px;
+      margin:auto;
+  }
+
+#logo img {
+    /*padding:4px;*/
+  }
+#logo{
+  background-color:#7d50a7;
+  overflow: auto;
+}
+nav {
+      /*background-color:#325EB2;*/
+      text-align:center;
+      clear:both;
+  }
+
+nav ul {
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:inline;
+  }
+
+nav li {
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:inline;
+  }
+
+nav a {
+      /*color:#fff;*/
+      text-decoration:none;
+      display:inline-block; 
+      margin:0;
+      padding:4px 8px;
+      font-weight:bold;
+  }
+
+nav a:hover,nav a:focus,
+      nav a:active {
+      background-color:#eeeeee;
+  }
+
+figure {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+    margin: auto;
+  }
+  figcaption {
+    /*font-style: italic;*/
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+figure.floatleft {
+      float:left;
+      margin:0 10px 5px 0;
+  }
+figure.floatright {
+      float:right;
+      margin:0 0px 5px 10px;
+  }
+
+main {
+      /*padding:10px 30px;*/
+      float:left;
+      width:700px;
+      padding:0 10px 10px 0;
+      box-sizing:border-box;
+
+  }
+
+#topics-list {
+      float:right;
+      width:300px;
+      box-sizing:border-box;
+      padding:0 0 10px;
+      border-style: solid;
+      border-width: 0px 3px 3px 3px;
+      border-color: #7d50a7;
+      border-radius: 0px 0px 8px 8px; 
+  }
+#topics-list ul{
+  list-style-type: none;
+}
+
+
+footer {
+      clear:both;
+      margin:20px 0 50px 0;
+      text-align:center;
+      background-color:#eee;
+      padding:3px; 
+  }
+
+nav li.tablet,nav li.phone {
+    display:none;
+  }
+
+@media (max-width: 1000px) {
+  nav li.desktop,nav li.phone {
+   display:none;
+  }
+  nav li.tablet {
+    display:inline;
+  }
+  #container {
+    width:100%;
+  }
+  figure.floatleft {
+    display:block;
+    padding:5px;
+  }
+  figure.floatright {
+    display:block;
+    padding:5px;
+  }
+  
+  main,#topics-list {
+    float:none;
+    width:auto;
+    padding:0 10px;
+  }
+  #topics-list {
+    border-width: 3px 3px 3px 3px;
+    border-radius: 8px 8px 8px 8px; 
+  }
+
+}
+
+@media (max-width: 700px) {
+  nav li.desktop, nav li.tablet {
+    display:none;
+  }
+  nav li.phone {
+    display:block;
+  }
+  nav li {
+    text-align:left;
+  }
+  nav a {
+      width:100%; 
+      display:block;
+      font-size:18px;
+  }
+  figure.floatleft {
+      margin:auto;
+      float:none;
+  }
+  figure.floatright {
+      margin:auto;
+      float:none;
+  }
+
+  
+}
+
+.upsidown{
+  transform: scale(-1, -1);
+}
+
+.knower
+{
+  color: #BF9000;
+} 
+
+.guider
+{
+  color: #1155CC;
+} 
+
+.wise
+{
+  color: #351C75;
+} 
+
+.learn
+{
+  color: #38761D;
+} 
+.work
+{
+  color: #666666;
+} 
+.pretend
+{
+  color: #712B2B;
+} 
+.misguide
+{
+  color: #FF0000;
+} 
+.bad
+{
+  text-shadow:
+		/*-1px -1px 0 #ffffff,
+		1px -1px 0 #ff0000,
+		-1px 1px 0 #ff0000,*/
+		1px 1px 0 #ffaaaa;
+    color: #000000;
+} 
+.bad_light
+{
+  color: #4A0000;
+} 
+
+dt {
+    font-weight: bold;
+}
+dd {
+    margin-bottom: 1em;
+}
+
+.blank{
+  text-decoration: underline; white-space: pre;
+}
+
+.borderaround{
+   border: 1px solid black;
+}
+.mincol thead tr th:first-child,
+.mincol tbody tr td:first-child {
+  min-width: 7.75em;
+}
+.mincol td{
+  vertical-align: top;
+}
+
+/*.col table td + td { border-left:1px solid black; }*/
+
+
+table td { padding:5px 5px 5px 5px; }
+table th { padding:5px 5px 5px 5px; }
+.startyellow{
+  border-collapse: collapse;
+}
+.startclear  {
+  border-collapse: collapse;
+}
+.startyellow tr:nth-child(odd){
+  background-color: #ecdeb3;
+}
+.startclear tr:nth-child(even){
+  background-color: #ecdeb3;
+}
+.startyellow th{
+  background-color: white;
+} 
+.startclear th{
+  background-color: #ecdeb3;
+} 
