@@ -113,7 +113,7 @@ nav li.tablet,nav li.phone {
     display:none;
   }
 
-@media (max-width: 1000px) {
+/*@media (max-width: 1000px) {
   nav li.desktop,nav li.phone {
    display:none;
   }
@@ -142,9 +142,9 @@ nav li.tablet,nav li.phone {
     border-radius: 8px 8px 8px 8px; 
   }
   
-}
+}*/
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   nav li.desktop, nav li.tablet {
     display:none;
   }
