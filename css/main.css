@@ -172,6 +172,10 @@ nav li.tablet,nav li.phone {
   
 }
 
+figure img {
+  max-width: 90vw;
+}
+
 figure {
   max-width: 90vw;
 }
