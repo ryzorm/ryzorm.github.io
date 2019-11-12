@@ -93,7 +93,7 @@ main {
       border-style: solid;
       border-width: 0px 3px 3px 3px;
       border-color: #7d50a7;
-      border-radius: 0px 0px 8px 8px; 
+      border-radius: 0px 0px 8px 8px;
       /*max-width: 100vw;overflow-x: hidden;*/
   }
 #topics-list ul{
@@ -136,15 +136,16 @@ nav li.tablet,nav li.phone {
     float:none;
     width:auto;
     padding:0 10px;
+
   }
   #topics-list {
     border-width: 3px 3px 3px 3px;
     border-radius: 8px 8px 8px 8px; 
   }
-  
+
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   nav li.desktop, nav li.tablet {
     display:none;
   }
@@ -175,7 +176,6 @@ figure img {
   max-width: 90vw;
 }
 
-
 .upsidown{
   transform: scale(-1, -1);
 }
@@ -187,12 +187,12 @@ figure img {
 
 .guider
 {
-  color: #1155CC;
+  color: #1155CC;/*book cmyk 100 0 0 40*/
 } 
 
 .wise
 {
-  color: #351C75;
+  color: #351C75; /*book cmyk 78 100 20.13 0*/
 } 
 
 .learn
@@ -201,11 +201,11 @@ figure img {
 } 
 .work
 {
-  color: #666666;
+  color: #666666; /*book cmyk 59.77 51.18 50.77 17*/
 } 
 .pretend
 {
-  color: #712B2B;
+  color: #712B2B;  /*book: #913b3b;*/
 } 
 .misguide
 {
@@ -214,12 +214,13 @@ figure img {
 .bad
 {
   text-shadow:
-		/*-1px -1px 0 #ffffff,
-		1px -1px 0 #ff0000,
-		-1px 1px 0 #ff0000,*/
-		1px 1px 0 #ffaaaa;
+    /*-1px -1px 0 #ffffff,
+    1px -1px 0 #ff0000,
+    -1px 1px 0 #ff0000,
+   color: #4A0000;*/
+    1px 1px 0 #ffaaaa;
     color: #000000;
-} 
+}  /*book cmyk 32 100 100 0*/
 .bad_light
 {
   color: #4A0000;
