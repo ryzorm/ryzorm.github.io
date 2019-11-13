@@ -62,7 +62,7 @@ figure {
     margin: auto;
   }
   figcaption {
-    /*font-style: italic;*/
+    font-style: italic;
     font-size: 18px;
     font-family: "Times New Roman", Times, serif;
   }
@@ -172,10 +172,6 @@ nav li.tablet,nav li.phone {
   
 }
 
-figure img {
-  max-width: 90vw;
-}
-
 figure {
   max-width: 90vw;
 }
@@ -196,7 +192,7 @@ figure {
 
 .wise
 {
-  color: #351C75; /*book cmyk 78 100 20.13 0*/
+  color: #6329BB/*old #351C75;*/ /*book cmyk 78 100 20.13 0*/
 } 
 
 .learn
@@ -209,7 +205,7 @@ figure {
 } 
 .pretend
 {
-  color: #712B2B;  /*book: #913b3b;*/
+  color: #913b3b;  /*book: #913b3b;*/
 } 
 .misguide
 {
@@ -218,11 +214,11 @@ figure {
 .bad
 {
   text-shadow:
-    /*-1px -1px 0 #ffffff,
-    1px -1px 0 #ff0000,
-    -1px 1px 0 #ff0000,
+		/*-1px -1px 0 #ffffff,
+		1px -1px 0 #ff0000,
+		-1px 1px 0 #ff0000,
    color: #4A0000;*/
-    1px 1px 0 #ffaaaa;
+		1px 1px 0 #ffaaaa;
     color: #000000;
 }  /*book cmyk 32 100 100 0*/
 .bad_light
