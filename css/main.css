@@ -175,6 +175,9 @@ nav li.tablet,nav li.phone {
 figure {
   max-width: 90vw;
 }
+figure img{
+  max-width: 90vw;
+}
 
 .upsidown{
   transform: scale(-1, -1);
