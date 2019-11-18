@@ -175,10 +175,10 @@ nav li.tablet,nav li.phone {
 figure {
   max-width: 90vw;
 }
+
 figure img{
   max-width: 90vw;
 }
-
 .upsidown{
   transform: scale(-1, -1);
 }
@@ -195,7 +195,7 @@ figure img{
 
 .wise
 {
-  color: #6329BB/*old #351C75;*/ /*book cmyk 78 100 20.13 0*/
+  color: #6329BB;/*old #351C75;*/ /*book cmyk 78 100 20.13 0*/
 } 
 
 .learn
