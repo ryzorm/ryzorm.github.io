@@ -4,9 +4,23 @@
 
 <!-- Mirrored from 127.0.0.1:3000/buy_the_book.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 May 2020 00:08:52 GMT -->
 <head>
-<!-- Event snippet for Page view conversion page -->
+<!-- Event snippet for Outbound click conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
 <script>
-  gtag('event', 'conversion', {'send_to': 'AW-720718184/J9pjCOGto9MBEOiS1dcC'});
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-720718184/IeGzCJXJ69QBEOiS1dcC',
+      'value': 0.01,
+      'currency': 'USD',
+      'event_callback': callback
+  });
+  return false;
+}
 </script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152894315-1"></script>
@@ -46,7 +60,8 @@
 
 <figure style="width:400px;" class="floatright" >
   <img width = "400" src="images/soft_hard_cover.jpg" alt="A soft cover next to a hrd cover version of the book">
-  <figcaption style="text-align:center"> <strong> Buy the Book </strong><br> $12.50 soft cover $20.00 hard cover <br> <a href="https://www.amazon.com/Caretaker-Defiance-Guide-Thoughtful-Kids/dp/1733140514">Amazon</a> - <a href="https://www.barnesandnoble.com/w/caretaker-defiance-guide-peter-keuler/1135339512">Barnes & Noble</a></figcaption>
+  <figcaption style="text-align:center"> <strong> Buy the Book </strong><br> $12.50 soft cover $20.00 hard cover <br> <a onclick="gtag_report_conversion('https://www.amazon.com/Caretaker-Defiance-Guide-Thoughtful-Kids/dp/1733140514')"
+    href="https://www.amazon.com/Caretaker-Defiance-Guide-Thoughtful-Kids/dp/1733140514">Amazon</a> - <a onclick="gtag_report_conversion('https://www.barnesandnoble.com/w/caretaker-defiance-guide-peter-keuler/1135339512' href="https://www.barnesandnoble.com/w/caretaker-defiance-guide-peter-keuler/1135339512">Barnes & Noble</a></figcaption>
 </figure>
 
 
@@ -70,7 +85,7 @@ find <strong>meaning</strong> in your actions.</p>
 
 <figure  class="floatleft" style="width:320px;">
   <img width = "320" src="images/larger_print_edition.jpg" alt="A soft cover next to a hrd cover version of the book">
-  <figcaption style="text-align:center">  By the Larger Print Edition for $20.00 <br> <a href="https://www.amazon.com/Caretaker-Defiance-Guide-Larger-Thoughtful/dp/1733140522">Amazon</a> - <a href="https://www.barnesandnoble.com/w/caretaker-defiance-guide-larger-print-peter-keuler/1135339606">Barnes & Noble</a></figcaption>
+  <figcaption style="text-align:center">  By the Larger Print Edition for $20.00 <br> <a onclick="gtag_report_conversion('https://www.amazon.com/Caretaker-Defiance-Guide-Larger-Thoughtful/dp/1733140522')" href="https://www.amazon.com/Caretaker-Defiance-Guide-Larger-Thoughtful/dp/1733140522">Amazon</a> - <a onclick="gtag_report_conversion('https://www.barnesandnoble.com/w/caretaker-defiance-guide-larger-print-peter-keuler/1135339606')" href="https://www.barnesandnoble.com/w/caretaker-defiance-guide-larger-print-peter-keuler/1135339606">Barnes & Noble</a></figcaption>
 </figure>
 
 <h2 id="parents">Parents!</h2>
