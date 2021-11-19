@@ -1,0 +1,392 @@
+
+<script>
+  // Create a class for the element
+
+
+</script>
+<style type="text/css">
+
+</style>
+
+<div contenteditable="true" id="container">
+  This text can be <span class = "canvasCntnr"><canvas id="myCanvas" class = "hey" width="64" height="64" style="border:0px solid #000000;"> </canvas></span> edited by the user.
+ Hi, I'm funnyhoh ohoh <input type="color"value="#e66465" onchange="this.setAttribute('value', this.value)"> 
+  hi
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAIJJREFUeF7t1wERADAIAzHwr2M6mZDPJPRGc917cxN+KwA/wAnogHAHjhKkAAUoQAEKhBPAIAYxiEEMhhEwhjCIQQxiEIMYDCeAQQxiEIMYDCNgDWIQgxjEIAYxGE4AgxjEIAYxGEbAGsQgBjGIQQxiMJwABjGIQQxiMIyANYjBOoMf5oepAXUyAeoAAAAASUVORK5CYII=">
+  <span id="replace"> </span>
+</div>
+
+<div id = "copied" >
+</div>
+
+<script>
+
+var backspacewapper = "table"
+if(navigator.userAgent.search(/trident/i)>0){
+    //Internet Explorer
+} else if(navigator.userAgent.search(/webkit/i)>0){
+    //Chrome, Safari
+// } else if(navigator.userAgent.search(/???/i)>0){ //replace ??? by the appropriate engine
+    //others
+} else if(navigator.userAgent.search(/gecko/i)>0){
+    backspacewapper = "span"
+}
+
+//for content type: editable, usually only images are easily copied and pasted
+//I want canvas and video elements to be copy and pasteable too
+const targetNode = document.getElementById('container');
+targetNode.addEventListener('copy', (event) => {
+    clipboardManip(event)
+});
+
+targetNode.addEventListener('cut', (event) => {
+  clipboardManip(event)
+  document.execCommand("delete") //preserve undo history
+});
+
+function clipboardManip(event){
+  const selection = document.getSelection();
+  var text = selection.toString();
+  if (selection.rangeCount > 0) {
+    range = selection.getRangeAt(0);
+    var clonedSelection = range.cloneContents();
+    //var formattedHtml = applyImportantTags(clonedSelection, range.commonAncestorContainer);
+    var div = document.createElement('div');
+    div.appendChild(clonedSelection);
+    var children = div.childNodes
+
+    for (let i = 0; i < children.length; i++) {
+      //console.log(children[i].tagName)
+      //if(children[i].tagName){console.log(children[i].children[0].tagName)}
+      
+      if (children[i].class == "canvasCntnr"){
+        //img = document.createElement('img')
+        //img.dataset.id = "myCanvas"
+        //img.dataset.class = "hey"
+        //img.setAttribute("onerror", "this.onerror=null;convertToCanvas(this)")
+        //div.replaceChild (img,children[i]);
+      }
+    }
+    text = div.innerHTML;
+  }
+
+
+  //alert(selection.toString())
+  event.clipboardData.setData("text/html", text);
+  event.preventDefault();
+  document.getElementById('copied').innerHTML = text
+}
+
+// targetNode.addEventListener('paste', (event) => {
+//    let paste = (event.clipboardData || window.clipboardData).getData('text/html');
+//    alert(paste)
+//    document.getElementById('copied').innerHTML = paste
+// });
+
+//Options for the observer (which mutations to observe)
+
+
+// Callback function to execute when mutations are observed
+//to get Firefox to work
+//firefox removes a lot of attributes when videos are pasted from the clipboard
+const callback = function(mutations, observer) {
+    // // Use traditional 'for loops' for IE 11
+    // for(var i=0; i<mutations.length; ++i) {
+    //     // look through all added nodes of this mutation
+    //     for(var j=0; j<mutations[i].addedNodes.length; ++j) {
+    //         // was a child added with ID of 'bar'?
+    //         console.log(mutations[i].addedNodes[j].class)
+    //         if(mutations[i].addedNodes[j].class == "video-wrap") {
+    //           console.log("got here")
+    //             var video = mutations[i].addedNodes[j].children[0]
+    //             video.src = video.dataset.srccopy
+    //             video.play()
+    //         }
+    //     }
+    // }
+    var movevid
+  mutations.forEach(function(mutation) {
+    var message = "";
+    if (mutation.type == 'childList') {
+      for(var j=0; j<mutation.addedNodes.length; ++j) {
+        console.log("thing"+j+" and "+mutation.addedNodes[j].nodeName+ " "+ mutation.addedNodes[j].className)
+        if (mutation.addedNodes[j].className=="video-wrap" && mutation.addedNodes[j].tagName == "SPAN"){
+          
+          var video = mutation.addedNodes[j].children[0]
+          //console.log("child"+video.src)
+          if (video && video.src == false ){
+            video.src = video.dataset.srccopy
+            video.controls = false;
+              // video.autoplay = true;
+              // video.loop=true;
+              // video.muted=true;
+              // video.playesinline=true;
+              // video.xmlns="http://www.w3.org/1999/xhtml"; //get ff to work
+            video.play();
+          }
+          else
+          {
+            video.play(); //to fix redo "crtl y" behavior
+          }
+        }
+        if(mutation.addedNodes[j].tagName == "VIDEO")//oops Blink lost its video wrapper
+        {
+          movevid = mutation.addedNodes[j]
+          //console.log("got here 1")
+          //mutation.addedNodes[j+1].appendChild(mutation.addedNodes[j]);
+          //console.log("apenfin "+mutation.addedNodes[j].nodeName+" to "+mutation.addedNodes[j+1].nodeName)
+        }
+        if(mutation.addedNodes[j].tagName == "TABLE")
+        {
+          if(movevid){//oops Blink lost its video wrapper
+            mutation.addedNodes[j].appendChild(movevid); //Stick it back in there
+          //console.log("apenfin "+movevid.nodeName+" to "+mutation.addedNodes[j].nodeName)
+          }
+          else{
+            var video = mutation.addedNodes[j].children[0];
+            if(video){
+              video.play(); //to fix redo "crtl y" behavior
+            }
+          }
+        }
+        if(mutation.addedNodes[j].tagName == "INPUT")
+        {
+          console.log("put in an input")
+          if(mutation.addedNodes[j].type=="color"){
+            console.log("color input")
+            mutation.addedNodes[j]
+            mutation.addedNodes[j].addEventListener('change', (event) => {
+              event.target.setAttribute('value', event.target.value)
+            });
+          }
+        }
+
+      }
+    }
+  });
+};
+
+// Create an observer instance linked to the callback function
+const observer = new MutationObserver(callback);
+
+//Start observing the target node for configured mutations
+observer.observe(targetNode, { childList: true });
+
+
+  class Vslz extends HTMLSpanElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+    // Create a shadow root
+    const shadow = this.attachShadow({mode: 'open'});
+
+      var attrs = this.attributes;
+       var output = "";
+       for(var i = attrs.length - 1; i >= 0; i--) {
+         output += attrs[i].name + "->" + attrs[i].value;
+       }
+       
+    shadow.innerHTML = output
+    if(this.hasAttribute('image')) {
+      shadow.innerHTML = 
+      `<img src="`+this.getAttribute('image')+`" width="64" height="64">`;
+    }
+    else if (this.hasAttribute('canvas')){
+      shadow.innerHTML = `
+      <canvas id="myCanvas" class = "hey" width="64" height="64" style="border:0px solid #000000;">
+        </canvas>`;
+    }
+    else if (this.hasAttribute('video')){
+      shadow.innerHTML = `<video src="`+this.getAttribute('video')+`" >`;
+    }
+  }
+}
+
+// Define the new element
+customElements.define('vlz-vslz', Vslz, { extends: 'span' });
+
+
+// observer.observe(targetNode[0], config);
+
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.moveTo(0,0);
+ctx.lineTo(64,64);
+ctx.stroke();
+ctx.fillRect(50,50,50,50);
+
+var container = document.getElementById ("container");
+var replace = document.getElementById ("replace");
+var img = new Image();
+
+
+// var url
+// canvas.toBlob(function(blob) {
+//   url = URL.createObjectURL(blob);
+// });
+//img.src = canvas.toDataURL();
+//img.src = url
+
+
+var setImgUrlToCanvas
+//need to test both of these options, 
+//I would assume the top one would be best for animated visuals, but I have not tested
+if (false) {
+  setImgUrlToCanvas=function(img,canvas){
+
+    const mimeType = 'image/png';
+    canvas.toBlob((blob) => {
+    const reader = new FileReader();
+    reader.addEventListener('loadend', () => {
+      const arrayBuffer = reader.result;
+      // Dispay Blob content in an Image.
+      const blob = new Blob([arrayBuffer], {type: mimeType});
+      if(img.src) { URL.revokeObjectURL(img.src)} //don't know if this is necessary
+      img.src = URL.createObjectURL(blob);
+    });
+    reader.readAsArrayBuffer(blob);
+  }, mimeType);
+  };
+}
+else
+{
+  setImgUrlToCanvas=function(img,canvas){img.src = canvas.toDataURL()}
+
+}
+// Convert canvas to Blob, then Blob to ArrayBuffer.
+setImgUrlToCanvas(img, canvas)
+
+//img.setAttribute('class', 'hey');
+container.replaceChild (img,replace);
+
+window.requestAnimationFrame(draw);
+
+startRecording(canvas)
+
+function draw() {
+  var heys =  document.getElementsByClassName("hey")
+  var arrayLength = heys.length;
+  for (var i = 0; i < arrayLength; i++) {
+  var ctx = heys[i].getContext('2d');
+    ctx.beginPath();
+    ctx.arc(Math.random()*64, Math.random()*64, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = 'orange';
+    ctx.fill();
+
+    setImgUrlToCanvas(img, heys[i])
+    // URL.revokeObjectURL(url);
+    //img.src = canvas.toDataURL();
+
+    /*canvas.toBlob(function(blob) {
+       url = URL.createObjectURL(blob);
+       img.src = url
+    }, "image/png");*/
+        
+  }
+  if (arrayLength == 0){
+    console.log("drwaing again in in second")
+    setTimeout(()=>window.requestAnimationFrame(draw), 1000);
+  }
+  else
+  {
+    window.requestAnimationFrame(draw)
+  }
+
+}
+
+function startRecording(canvas) {
+  const chunks = []; // here we will store our recorded media chunks (Blobs)
+  const stream = canvas.captureStream(); // grab our canvas MediaStream
+      var options = {
+      audioBitsPerSecond : 0,
+      // videoBitsPerSecond : 2500000,
+      videoBitsPerSecond : 100000,
+      mimeType : 'video/webm;codecs:vp9'
+    }
+  const rec = new MediaRecorder(stream,options); // init the recorder
+  // every time the recorder has new data, we will store it in our array
+  rec.ondataavailable = e => chunks.push(e.data);
+  // only when the recorder stops, we construct a complete Blob from all the chunks
+  rec.onstop = e => exportVid(new Blob(chunks, {type: 'video/webm'}),canvas);
+  //rec.onstop = e => exportGif(new Blob(chunks, {type: 'image/webp'}));
+  rec.start();
+  setTimeout(()=>rec.stop(), 3000); // stop recording in 3s
+}
+
+function exportVid(blob,canvas) {
+  if(canvas.parentNode.parentNode)
+  {
+    const vid = document.createElement('video');
+    set_gif_attributes(vid)
+    //const source = document.createElement('source');
+    var url = URL.createObjectURL(blob);
+    vid.setAttribute("src", url);
+    console.log("appending")
+    var container = document.createElement(backspacewapper) //tables for webkit, spans for gecko
+    //container.dataset.columns
+    vid.dataset.srccopy = url
+    container.style = "display:inline-block;"
+    
+
+    //container.dataset.srccopy = url;
+    //source.dataset.srccopy = url;
+
+    //const helperimage = document.createElement('img');
+    //helperimage.src = url;
+    //helperimage.setAttribute("onerror","this.parent.src = this.parent.dataset.srccopy;");
+    //helperimage.onerror = "this.parent.src = this.parent.dataset.srccopy;"
+    //source.setAttribute("onerror", "this.src = this.dataset.srccopy;")
+    
+   
+
+    container.setAttribute("class", "video-wrap")
+    container.appendChild(vid);
+    
+    canvas.parentNode.parentNode.replaceChild (container,canvas.parentNode);
+    //vid.appendChild(source);
+    //container.appendChild(helperimage);
+
+    vid.play(); //get ff to work
+  }
+}
+
+
+// function generate_table(vid) {
+//   // get the reference for the body
+//   // creates a <table> element and a <tbody> element
+//   var tbl = document.createElement("table");
+
+//   // creating all cells
+//   var row = document.createElement("tr");
+
+//   var cell = document.createElement("td");
+   
+//   cell.appendChild(vid);
+//   row.appendChild(cell);
+
+//   // add the row to the end of the table body
+//   // put the <tbody> in the <table>
+//   tbl.appendChild(row);
+//   // appends <table> into <body>
+//   // sets the border attribute of tbl to 2;
+//   tbl.setAttribute("border", "0");
+//   return tbl
+// }
+function set_gif_attributes(vid){
+  vid.setAttribute("autoplay", "true");
+  vid.setAttribute("loop", "true");
+  vid.setAttribute("muted", "true");
+  vid.setAttribute("playesinline", "true");
+
+  //to get firefox to work
+  //vid.xmlns="http://www.w3.org/1999/xhtml"
+  vid.muted=true;
+  //return vid
+}
+
+
+// angle visual
+
+</script>
